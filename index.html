@@ -1,20 +1,20 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flip The Future â€” Speel. Leer. Verander.</title>
+  <title>Flip The Future — Speel. Leer. Verander.</title>
   <meta name="description" content="Een interactief educatief bordspel over keuzes, samenwerking en mondiale impact. Strijd om te winnen. Werk samen om te overleven.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* â”€â”€â”€ Reset â”€â”€â”€ */
+    /* ─── Reset ─── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     img, video { display: block; max-width: 100%; }
     button { cursor: pointer; font: inherit; border: none; background: none; }
 
-    /* â”€â”€â”€ Tokens â”€â”€â”€ */
+    /* ─── Tokens ─── */
     :root {
       --bg:           #080808;
       --surf:         #111111;
@@ -57,7 +57,7 @@
     /* Hide default cursor everywhere */
     *, *::before, *::after { cursor: none !important; }
 
-    /* â”€â”€â”€ Custom cursor â”€â”€â”€ */
+    /* ─── Custom cursor ─── */
     #cursor-dot {
       position: fixed;
       top: 0;
@@ -93,7 +93,7 @@
       body { cursor: auto; }
     }
 
-    /* â”€â”€â”€ Accessibility â”€â”€â”€ */
+    /* ─── Accessibility ─── */
     .skip-link {
       position: fixed;
       top: 1rem;
@@ -112,7 +112,7 @@
     .skip-link:focus { transform: translateY(0); }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-    /* â”€â”€â”€ Reduced motion â”€â”€â”€ */
+    /* ─── Reduced motion ─── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -122,7 +122,7 @@
       html { scroll-behavior: auto; }
     }
 
-    /* â”€â”€â”€ Scroll reveal â”€â”€â”€ */
+    /* ─── Scroll reveal ─── */
     .r {
       opacity: 0;
       transform: translateY(20px);
@@ -130,9 +130,9 @@
     }
     .r.vis { opacity: 1; transform: translateY(0); }
 
-    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+    /* ══════════════════════════════════════
        NAVIGATIE
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    ══════════════════════════════════════ */
 
     /* Balk */
     .navbar {
@@ -285,13 +285,13 @@
       border-radius: 4px;
     }
 
-    /* Schakel om bij â‰¤ 1024 px */
+    /* Schakel om bij ≤ 1024 px */
     @media (max-width: 1024px) {
       .navbar-links { display: none; }
       .navbar-burger { display: flex; }
     }
 
-    /* â”€â”€â”€ Buttons â”€â”€â”€ */
+    /* ─── Buttons ─── */
     .btn-prim {
       display: inline-flex;
       align-items: center;
@@ -361,7 +361,7 @@
 
     .btn-group { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; }
 
-    /* â”€â”€â”€ Hero â”€â”€â”€ */
+    /* ─── Hero ─── */
     .hero {
       min-height: 100dvh;
       display: grid;
@@ -510,7 +510,7 @@
       .hero-trust { flex-wrap: wrap; gap: 1rem; }
     }
 
-    /* â”€â”€â”€ Stats bar â”€â”€â”€ */
+    /* ─── Stats bar ─── */
     .stats-bar {
       background: var(--surf);
       border-top: 1px solid var(--border);
@@ -553,7 +553,7 @@
       .stat:nth-child(2) { border-right: none; }
     }
 
-    /* â”€â”€â”€ Section base â”€â”€â”€ */
+    /* ─── Section base ─── */
     section { padding: 6.5rem var(--px); }
 
     .s-h2 {
@@ -570,7 +570,7 @@
       line-height: 1.75;
     }
 
-    /* â”€â”€â”€ Video section â”€â”€â”€ */
+    /* ─── Video section ─── */
     .video-sec {
       background: var(--bg);
       padding: 6.5rem var(--px);
@@ -587,7 +587,7 @@
     .video-hdr .s-h2 { margin-bottom: 1rem; }
     .video-hdr .s-body { max-width: 52ch; }
 
-    /* 9:16 TikTok ratio â€” aspect-ratio op container, video absoluut gepositioneerd
+    /* 9:16 TikTok ratio — aspect-ratio op container, video absoluut gepositioneerd
        zodat de video's eigen 16:9 ratio de container NOOIT kan uitrekken */
     .video-ratio {
       position: relative;
@@ -690,7 +690,7 @@
     /* Live video element (shown when src is set) */
     .video-ratio video { object-fit: cover; }
 
-    /* Custom poster overlay â€” verdwijnt bij play */
+    /* Custom poster overlay — verdwijnt bij play */
     .video-poster {
       position: absolute;
       inset: 0;
@@ -771,7 +771,7 @@
       border-radius: 999px;
     }
 
-    /* â”€â”€â”€ About â”€â”€â”€ */
+    /* ─── About ─── */
     .about { background: var(--surf); }
 
     .about-grid {
@@ -836,7 +836,7 @@
       .about-tag { position: static; display: inline-block; margin-top: 1.25rem; }
     }
 
-    /* â”€â”€â”€ Values â”€â”€â”€ */
+    /* ─── Values ─── */
     .values { background: var(--bg); }
 
     .values-intro { max-width: 52ch; margin-bottom: 4rem; }
@@ -933,7 +933,7 @@
       .val-card { padding: 2.25rem; }
     }
 
-    /* â”€â”€â”€ How it works â”€â”€â”€ */
+    /* ─── How it works ─── */
     .how { background: var(--surf); }
 
     .how-head { margin-bottom: 4rem; }
@@ -1066,7 +1066,7 @@
       .how-grid { grid-template-columns: 1fr; gap: 3rem; }
     }
 
-    /* â”€â”€â”€ Roles â”€â”€â”€ */
+    /* ─── Roles ─── */
     .roles { background: var(--bg); }
     .roles-intro { margin-bottom: 3.5rem; }
     .roles-intro .s-h2 { margin-bottom: 1rem; }
@@ -1141,7 +1141,7 @@
       .roles-top, .roles-bot { border-radius: var(--radius-lg); }
     }
 
-    /* â”€â”€â”€ Materials â”€â”€â”€ */
+    /* ─── Materials ─── */
     .materials { background: var(--surf); }
 
     .mat-layout {
@@ -1200,7 +1200,7 @@
       .mat-grid { grid-template-columns: 1fr; }
     }
 
-    /* â”€â”€â”€ Educators â”€â”€â”€ */
+    /* ─── Educators ─── */
     .educators { background: var(--bg); }
 
     .edu-label {
@@ -1261,7 +1261,7 @@
       .edu-layout { grid-template-columns: 1fr; gap: 3rem; }
     }
 
-    /* â”€â”€â”€ Compensation Coin â”€â”€â”€ */
+    /* ─── Compensation Coin ─── */
     .coin-sec {
       background: var(--surf);
       padding: 6.5rem var(--px);
@@ -1377,7 +1377,7 @@
       .coin-vid-wrap { width: min(260px, 70%); }
     }
 
-    /* â”€â”€â”€ Loader â”€â”€â”€ */
+    /* ─── Loader ─── */
     #loader {
       position: fixed;
       inset: 0;
@@ -1456,7 +1456,7 @@
       .loader-brand, .loader-bar-wrap, .loader-pct { animation: none; opacity: 1; transform: none; }
     }
 
-    /* â”€â”€â”€ Contact modal â”€â”€â”€ */
+    /* ─── Contact modal ─── */
     .modal-backdrop {
       position: fixed;
       inset: 0;
@@ -1617,7 +1617,7 @@
     }
     .success-body { font-size: 0.9375rem; color: var(--grey-lt); line-height: 1.65; max-width: 36ch; }
 
-    /* â”€â”€â”€ CTA â”€â”€â”€ */
+    /* ─── CTA ─── */
     .cta {
       background: var(--accent);
       padding: 7rem var(--px);
@@ -1658,7 +1658,7 @@
       line-height: 1.7;
     }
 
-    /* â”€â”€â”€ Footer â”€â”€â”€ */
+    /* ─── Footer ─── */
     footer {
       background: var(--surf);
       border-top: 1px solid var(--border);
@@ -1750,7 +1750,7 @@
       <div id="modal-form-view">
         <span class="modal-tag">Contact</span>
         <h2 class="modal-title" id="modal-title">NEEM CONTACT<br>MET ONS OP</h2>
-        <p class="modal-sub">GeÃ¯nteresseerd in Flip The Future? Vul het formulier in en we nemen zo snel mogelijk contact met je op.</p>
+        <p class="modal-sub">Geïnteresseerd in Flip The Future? Vul het formulier in en we nemen zo snel mogelijk contact met je op.</p>
 
         <form class="contact-form" id="contact-form" novalidate>
           <div class="form-row">
@@ -1797,7 +1797,7 @@
 
   <!-- Navigatie -->
   <nav class="navbar" aria-label="Hoofdnavigatie">
-    <a href="#top" class="navbar-logo" aria-label="Flip The Future â€“ begin">
+    <a href="#top" class="navbar-logo" aria-label="Flip The Future – begin">
       <img src="Logo Flip The Future.png" alt="">
       <span>FLIP THE FUTURE</span>
     </a>
@@ -1871,7 +1871,7 @@
   <!-- Stats bar -->
   <div class="stats-bar" role="list" aria-label="Spelfeiten">
     <div class="stat" role="listitem">
-      <span class="stat-val">3â€“5</span>
+      <span class="stat-val">3–5</span>
       <span class="stat-lbl">spelers per team</span>
     </div>
     <div class="stat" role="listitem">
@@ -1927,11 +1927,11 @@
           <h2 class="s-h2 r" id="about-h">WAT IS<br>FLIP THE FUTURE?</h2>
           <div class="about-paras r">
             <p>Flip The Future is een educatief bordspel waarin studententeams mondiale zorgdilemma's oplossen. Verspreid over zes continenten werken teams samen om de Wereldgezondheidsindex te herstellen.</p>
-            <p>Elke keuze beÃ¯nvloedt drie kernwaarden: Care, Empathy en Accountability. Hoe meer gebalanceerd de keuzes, hoe verder een team vooruitkomt op het bord.</p>
+            <p>Elke keuze beïnvloedt drie kernwaarden: Care, Empathy en Accountability. Hoe meer gebalanceerd de keuzes, hoe verder een team vooruitkomt op het bord.</p>
           </div>
           <div class="about-badge-strip r">
             <span class="badge-dot" aria-hidden="true"></span>
-            <span class="badge-text"><strong>Ontwikkeld in samenwerking met</strong> het Expertiseteam Wereldburgerschap van de HAN. Inhoudelijk sterk Ã©n didactisch verantwoord.</span>
+            <span class="badge-text"><strong>Ontwikkeld in samenwerking met</strong> het Expertiseteam Wereldburgerschap van de HAN. Inhoudelijk sterk én didactisch verantwoord.</span>
           </div>
         </div>
         <div class="about-visual r">
@@ -2162,7 +2162,7 @@
         <div class="coin-sec-content">
           <h2 class="s-h2 r" id="coin-h">DE COMPENSATION<br>COIN</h2>
           <p class="s-body r" style="margin-top:1.25rem;">
-            De Compensation Coin is een speciaal beloningssysteem dat teams de kans geeft om een zwakke ronde recht te trekken. Wie zijn keuze goed kan onderbouwen, verdient een coin â€” en kan die strategisch inzetten.
+            De Compensation Coin is een speciaal beloningssysteem dat teams de kans geeft om een zwakke ronde recht te trekken. Wie zijn keuze goed kan onderbouwen, verdient een coin — en kan die strategisch inzetten.
           </p>
 
           <div class="coin-blocks r">
@@ -2171,7 +2171,7 @@
                 <span class="coin-block-num">01</span>
                 <span class="coin-block-title">Hoe verdien je een coin?</span>
               </div>
-              <p class="coin-block-body">Een team verdient een Compensation Coin wanneer het na een ronde met 0 of 1 stap duidelijk kan benoemen welke rol het meest bepalend was voor de keuze, dit logisch onderbouwt Ã©n de uitleg aansluit op het scenario en de centrale waarde.</p>
+              <p class="coin-block-body">Een team verdient een Compensation Coin wanneer het na een ronde met 0 of 1 stap duidelijk kan benoemen welke rol het meest bepalend was voor de keuze, dit logisch onderbouwt én de uitleg aansluit op het scenario en de centrale waarde.</p>
             </div>
 
             <div class="coin-block">
@@ -2179,7 +2179,7 @@
                 <span class="coin-block-num">02</span>
                 <span class="coin-block-title">Hoe zet je een coin in?</span>
               </div>
-              <p class="coin-block-body">Een coin mag worden ingezet om +1 punt toe te voegen aan Ã©Ã©n gekozen waarde. Als die extra punt zorgt voor een betere balans tussen Care, Empathy en Accountability, mag het team bovendien een extra stap op het bord zetten.</p>
+              <p class="coin-block-body">Een coin mag worden ingezet om +1 punt toe te voegen aan één gekozen waarde. Als die extra punt zorgt voor een betere balans tussen Care, Empathy en Accountability, mag het team bovendien een extra stap op het bord zetten.</p>
             </div>
           </div>
 
@@ -2228,7 +2228,7 @@
           </div>
           <p class="foot-credits">
             Ontwikkeld door Hannah van de Pavert, Suzan Lancee,<br>
-            Lynn Kraaijenvanger, Tom DaniÃ«l, Julia van Butselaar,<br>
+            Lynn Kraaijenvanger, Tom Daniël, Julia van Butselaar,<br>
             Sienna Schoeber en Sjoert Peeters.
           </p>
         </div>
@@ -2259,7 +2259,7 @@
   </footer>
 
   <script>
-    // â”€â”€â”€ Hamburger menu â”€â”€â”€
+    // ─── Hamburger menu ───
     const burger = document.getElementById('burger-btn');
     const mobileNav = document.getElementById('mobile-nav');
 
@@ -2280,7 +2280,7 @@
       });
     });
 
-    // â”€â”€â”€ Loader â”€â”€â”€
+    // ─── Loader ───
     (function () {
       const loader  = document.getElementById('loader');
       const bar     = document.getElementById('loader-bar');
@@ -2322,7 +2322,7 @@
       }
     })();
 
-    // â”€â”€â”€ Contact modal â”€â”€â”€
+    // ─── Contact modal ───
     (function () {
       const backdrop = document.getElementById('contact-modal');
       const closeBtn = document.getElementById('modal-close');
@@ -2370,7 +2370,7 @@
       });
     })();
 
-    // â”€â”€â”€ Compensation Coin â€” scroll-scrubbing (all-keyframe video) â”€â”€â”€
+    // ─── Compensation Coin — scroll-scrubbing (all-keyframe video) ───
     (function () {
       const video = document.getElementById('coin-video');
       if (!video) return;
@@ -2409,7 +2409,7 @@
       }
     })();
 
-    // â”€â”€â”€ Video poster overlay â”€â”€â”€
+    // ─── Video poster overlay ───
     (function () {
       const poster = document.getElementById('video-poster');
       const video  = document.getElementById('main-video');
@@ -2420,7 +2420,7 @@
         video.play();
       }
 
-      // Klik op poster â†’ verberg overlay en speel video af
+      // Klik op poster → verberg overlay en speel video af
       poster.addEventListener('click', hidePoster);
       poster.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') hidePoster(); });
 
@@ -2428,7 +2428,7 @@
       video.addEventListener('play', () => poster.classList.add('hidden'));
     })();
 
-    // â”€â”€â”€ Custom cursor (via rAF â€” geen layout-thrashing per mousemove) â”€â”€â”€
+    // ─── Custom cursor (via rAF — geen layout-thrashing per mousemove) ───
     (function () {
       const dot = document.getElementById('cursor-dot');
       if (!dot) return;
@@ -2463,7 +2463,7 @@
       document.addEventListener('mouseup',   () => dot.classList.remove('clicking'));
     })();
 
-    // â”€â”€â”€ Scroll reveal â”€â”€â”€
+    // ─── Scroll reveal ───
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -2483,4 +2483,3 @@
   </script>
 </body>
 </html>
-
