@@ -1414,6 +1414,27 @@
       mix-blend-mode: lighten;
     }
 
+    /* iOS fallback: statische coin met CSS-rotatie */
+    .coin-ios-img {
+      display: none;
+      width: 100%;
+      height: auto;
+      border-radius: 50%;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 16px 48px rgba(0,0,0,0.7));
+    }
+    .coin-ios-img.spinning {
+      animation: coinSpin 4s linear infinite;
+    }
+    @keyframes coinSpin {
+      from { transform: rotateY(0deg); }
+      to   { transform: rotateY(360deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .coin-ios-img.spinning { animation: none; }
+    }
+
     @media (max-width: 900px) {
       .coin-sec-grid { grid-template-columns: 1fr; gap: 3rem; }
       .coin-sec-visual { order: -1; }
@@ -2234,6 +2255,7 @@
 
         <div class="coin-sec-visual">
           <div class="coin-vid-wrap">
+            <!-- Desktop/Android: scroll-scrubbing video -->
             <video
               id="coin-video"
               class="coin-scroll-video"
@@ -2243,6 +2265,13 @@
               preload="auto"
               aria-label="Compensation Coin draait rond"
             ></video>
+            <!-- iOS: CSS-rotatie van statische afbeelding -->
+            <img
+              id="coin-ios"
+              class="coin-ios-img"
+              src="Compensation coin.png"
+              alt="Compensation Coin"
+            >
           </div>
         </div>
 
@@ -2415,31 +2444,32 @@
 
     // ─── Compensation Coin video ───
     (function () {
-      const video = document.getElementById('coin-video');
-      if (!video) return;
+      const video   = document.getElementById('coin-video');
+      const iosImg  = document.getElementById('coin-ios');
+      if (!video || !iosImg) return;
 
-      // iOS Safari staat video.currentTime scrubbing niet toe zonder
-      // gebruikersinteractie → gebruik autoplay-loop als fallback
+      // mix-blend-mode werkt niet op <video> in iOS Safari
+      // → gebruik statische afbeelding + CSS-rotatie als fallback
       const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
       if (isIOS) {
-        // iOS: speel de coin automatisch af zodra hij in beeld komt
-        video.loop        = true;
-        video.muted       = true;
-        video.playsInline = true;
+        // Verberg video, toon afbeelding
+        video.style.display  = 'none';
+        iosImg.style.display = 'block';
 
+        // Start rotatie zodra coin in beeld komt, stop als hij weggaat
         const obs = new IntersectionObserver((entries) => {
           entries.forEach(e => {
             if (e.isIntersecting) {
-              video.play().catch(() => {});
+              iosImg.classList.add('spinning');
             } else {
-              video.pause();
+              iosImg.classList.remove('spinning');
             }
           });
         }, { threshold: 0.2 });
 
-        obs.observe(video);
+        obs.observe(iosImg);
 
       } else {
         // Desktop & Android: scroll-scrubbing (all-keyframe video)
