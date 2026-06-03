@@ -2426,19 +2426,45 @@
       // Sluit via Escape
       document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-      // Formulier verzenden (simulatie)
-      form.addEventListener('submit', e => {
+      // ── Vervang JOUW_FORMSPREE_ID met het ID uit formspree.io ──
+      const FORMSPREE_ID = 'mbderpde';
+
+      form.addEventListener('submit', async e => {
         e.preventDefault();
-        formView.style.display = 'none';
-        success.classList.add('show');
-        setTimeout(() => {
-          closeModal();
-          setTimeout(() => {
-            formView.style.display = '';
-            success.classList.remove('show');
-            form.reset();
-          }, 400);
-        }, 2800);
+
+        const submitBtn = form.querySelector('.form-submit');
+        submitBtn.textContent = 'Versturen...';
+        submitBtn.disabled = true;
+
+        try {
+          const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+
+          if (res.ok) {
+            // Succes
+            formView.style.display = 'none';
+            success.classList.add('show');
+            setTimeout(() => {
+              closeModal();
+              setTimeout(() => {
+                formView.style.display = '';
+                success.classList.remove('show');
+                form.reset();
+                submitBtn.textContent = 'Verstuur bericht';
+                submitBtn.disabled = false;
+              }, 400);
+            }, 2800);
+          } else {
+            throw new Error('Versturen mislukt');
+          }
+        } catch {
+          submitBtn.textContent = 'Probeer opnieuw';
+          submitBtn.disabled = false;
+          alert('Er is iets misgegaan. Probeer het opnieuw of mail direct naar greenoffice@han.nl');
+        }
       });
     })();
 
