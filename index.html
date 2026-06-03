@@ -3,8 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Flip The Future — Speel. Leer. Verander.</title>
-  <meta name="description" content="Een interactief educatief bordspel over keuzes, samenwerking en mondiale impact. Strijd om te winnen. Werk samen om te overleven.">
+  <title>Flip The Future — Educatief Bordspel | Speel. Leer. Verander.</title>
+  <meta name="description" content="Flip The Future is een educatief bordspel over keuzes, samenwerking en mondiale impact voor het (zorg)onderwijs. Ontwikkeld door studenten van de HAN. Strijd om te winnen. Werk samen om te overleven.">
+  <meta name="keywords" content="flip the future, educatief bordspel, wereldburgerschap, zorgonderwijs, HAN, bordspel studenten, samenwerking, care empathy accountability">
+  <meta name="author" content="Flip The Future">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://flip-the-future.vercel.app/">
+
+  <!-- Open Graph (voor delen via social media en Google preview) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flip-the-future.vercel.app/">
+  <meta property="og:title" content="Flip The Future — Educatief Bordspel">
+  <meta property="og:description" content="Een interactief wereldspel over keuzes, samenwerking en mondiale impact. Ontwikkeld voor het (zorg)onderwijs. Strijd om te winnen. Werk samen om te overleven.">
+  <meta property="og:image" content="https://flip-the-future.vercel.app/Foto Video.png">
+  <meta property="og:locale" content="nl_NL">
+
+  <!-- Twitter/X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Flip The Future — Educatief Bordspel">
+  <meta name="twitter:description" content="Een interactief wereldspel over keuzes, samenwerking en mondiale impact voor het (zorg)onderwijs.">
+  <meta name="twitter:image" content="https://flip-the-future.vercel.app/Foto Video.png">
+
+  <!-- Structured data voor Google (spelinformatie) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "Flip The Future",
+    "description": "Een educatief bordspel over keuzes, samenwerking en mondiale impact voor het (zorg)onderwijs.",
+    "url": "https://flip-the-future.vercel.app/",
+    "image": "https://flip-the-future.vercel.app/Foto Video.png",
+    "genre": "Educatief",
+    "numberOfPlayers": {
+      "@type": "QuantitativeValue",
+      "minValue": 3,
+      "maxValue": 25
+    },
+    "educationalUse": "Wereldburgerschap, samenwerking, ethiek",
+    "inLanguage": "nl",
+    "publisher": {
+      "@type": "Organization",
+      "name": "HAN University of Applied Sciences"
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -2370,42 +2413,65 @@
       });
     })();
 
-    // ─── Compensation Coin — scroll-scrubbing (all-keyframe video) ───
+    // ─── Compensation Coin video ───
     (function () {
       const video = document.getElementById('coin-video');
       if (!video) return;
 
-      video.pause();
+      // iOS Safari staat video.currentTime scrubbing niet toe zonder
+      // gebruikersinteractie → gebruik autoplay-loop als fallback
+      const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-      function scrub() {
-        const section = video.closest('section');
-        if (!section || !video.duration) return;
+      if (isIOS) {
+        // iOS: speel de coin automatisch af zodra hij in beeld komt
+        video.loop        = true;
+        video.muted       = true;
+        video.playsInline = true;
 
-        const rect     = section.getBoundingClientRect();
-        const wh       = window.innerHeight;
-        const progress = Math.min(1, Math.max(0,
-          (wh - rect.top) / (wh + rect.height)
-        ));
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) {
+              video.play().catch(() => {});
+            } else {
+              video.pause();
+            }
+          });
+        }, { threshold: 0.2 });
 
-        video.currentTime = progress * video.duration;
-      }
+        obs.observe(video);
 
-      // Start scrubbing zodra metadata geladen is
-      function init() {
-        scrub();
-        let pending = false;
-        window.addEventListener('scroll', () => {
-          if (!pending) {
-            pending = true;
-            requestAnimationFrame(() => { scrub(); pending = false; });
-          }
-        }, { passive: true });
-      }
-
-      if (video.readyState >= 1) {
-        init();
       } else {
-        video.addEventListener('loadedmetadata', init, { once: true });
+        // Desktop & Android: scroll-scrubbing (all-keyframe video)
+        video.pause();
+
+        function scrub() {
+          const section = video.closest('section');
+          if (!section || !video.duration) return;
+          const rect     = section.getBoundingClientRect();
+          const wh       = window.innerHeight;
+          const progress = Math.min(1, Math.max(0,
+            (wh - rect.top) / (wh + rect.height)
+          ));
+          video.currentTime = progress * video.duration;
+        }
+
+        function init() {
+          scrub();
+          let pending = false;
+          window.addEventListener('scroll', () => {
+            if (!pending) {
+              pending = true;
+              requestAnimationFrame(() => { scrub(); pending = false; });
+            }
+          }, { passive: true });
+        }
+
+        if (video.readyState >= 1) {
+          init();
+        } else {
+          video.addEventListener('loadedmetadata', init, { once: true });
+        }
       }
     })();
 
